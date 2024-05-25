@@ -16,12 +16,11 @@ int main()
         scanf("%d", &w);
         scanf("%d", &h);
 
-        int result = (2*l*h) + (2*w*h) + (2*l*w);
+        int result = (2 * l * h) + (2 * w * h) + (2 * l * w);
         sum += result;
 
-        sum += area_smallest_side(l,w,h);
+        sum += area_smallest_side(l, w, h);
     }
-
 
     printf("%d\n", sum);
 
@@ -31,27 +30,20 @@ int main()
 int area_smallest_side(int l, int w, int h)
 {
     int a1, a2, a3;
-    a1 = l*h;
-    a2 = l*w;
-    a3= w*h;
+    a1 = l * h;
+    a2 = l * w;
+    a3 = w * h;
 
-    if(a1 < a2 && a1 < a3){
-        return a1;
+    if (l > w && l > h)
+    {
+        return w * h;
     }
-
-    if(a2 < a1 && a2 < a3){
-        return a2;
+    else
+    {
+        if (w > l && h < w)
+        {
+            return l * h;
+        }
     }
-
-    if(a3 < a1 && a3 < a2){
-        return a3;
-    }
-
-    if((a1 < a2 && a1 == a3) ||(a1 < a3 && a1 == a2)){
-        return a1;
-    }else if((a2 < a3 && a2 == a1) || (a2 < a1 && a2 == a3)){
-        return a2;
-    }else{
-        return a3;
-    }
+    return l * w;
 }
