@@ -1,25 +1,73 @@
 #include <stdio.h>
+#include <string.h>
 
 int area_smallest_side(int l, int w, int h);
+int calculate_decimal_value(char s[]);
+int myPow(int base, int p);
 
 int main()
 {
     int n;
     scanf("%d", &n);
-
     int sum = 0;
     for (int i = 0; i < n; i++)
     {
-        int l, w, h;
+        char lS[5] = {'\0'};
+        char wS[5] = {'\0'};
+        char hS[5] = {'\0'};
+        char s[15];
+        int n;
+        int varRead = 0;
+        scanf("%s", s);
+        char tempS[5] = {0};
+        int saveValue = 0;
+        int currentCount = 0;
+        int lastExecution = 0;
+        for (int i = 0; lastExecution == 0; i++)
+        {
+            if (s[i] == '\0')
+            {
+                lastExecution = 1;
+                strcpy(hS, tempS);
+                continue;
+            }
 
-        scanf("%d", &l);
-        scanf("%d", &w);
-        scanf("%d", &h);
+            if (s[i] != 'x')
+            {
+                tempS[currentCount] = s[i];
+                currentCount++;
+            }
+            else
+            {
+                saveValue = 1;
+            }
+            if (saveValue == 1)
+            {
+                if (varRead == 0)
+                {
+                    strcpy(lS, tempS);
+                }
+                else if (varRead == 1)
+                {
+                    strcpy(wS, tempS);
+                }
+
+                saveValue = 0;
+                currentCount = 0;
+                varRead++;
+                tempS[0] = '\0';
+                tempS[1] = '\0';
+                tempS[2] = '\0';
+                tempS[3] = '\0';
+            }
+        }
+        int l = calculate_decimal_value(lS);
+        int w = calculate_decimal_value(wS);
+        int h = calculate_decimal_value(hS);
 
         int result = (2 * l * h) + (2 * w * h) + (2 * l * w);
+        result += area_smallest_side(l, w, h);
         sum += result;
-
-        sum += area_smallest_side(l, w, h);
     }
 
     printf("%d\n", sum);
@@ -29,21 +77,75 @@ int main()
 
 int area_smallest_side(int l, int w, int h)
 {
-    int a1, a2, a3;
-    a1 = l * h;
-    a2 = l * w;
-    a3 = w * h;
-
     if (l > w && l > h)
     {
         return w * h;
     }
-    else
+    else if (w > l && w > h)
     {
-        if (w > l && h < w)
-        {
-            return l * h;
-        }
+        return l * h;
     }
-    return l * w;
+    else if (h > l && h > w)
+    {
+        return l * w;
+    }
+
+    if (l == w && h > l)
+    {
+        return l * w;
+    }
+    else if (h == l && w > l)
+    {
+        return h * l;
+    }
+    else if (w == h && l > w)
+    {
+        return w * h;
+    }
+
+    if (l == w && l > h)
+    {
+        return l * h;
+    }
+    else if (h == l && l > w)
+    {
+        return h * w;
+    }
+    else if (w == h && w > l)
+    {
+        return w * l;
+    }
+
+    return w * h;
+}
+
+int calculate_decimal_value(char s[])
+{
+    int position=0;
+    int value = 0;
+
+    for (int i = 4; i >= 0; i--)
+    {
+        if (s[i] == '\0')
+        {
+            continue;
+        }
+
+        int intValue = (int)s[i] - '0';
+        
+        value += myPow(10, position) * intValue;
+        position++;
+    }
+
+    return value;
+}
+
+int myPow(int base, int p)
+{
+    if (p == 0)
+    {
+        return 1;
+    }
+
+    return base * myPow(base, p - 1);
 }
