@@ -1,0 +1,59 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+int main(){
+  int colunaCount[5] = {0};
+
+  while(1){
+
+	int isOk = 1;
+	for(int i = 0; i < 25){
+	  int x;
+	  int r;
+	  if(x == 12){
+		x = 37;
+	  }else{
+		r = scanf("%d", &x);
+		if(r == EOF){
+		  break;
+		}
+	  }
+
+	  
+	  int col = i%5;// i=0 col = 0; i=5 col = 0
+
+	  int limiteInferior = 15 * col;
+	  int limiteSuperior = 15 + (15*col);
+
+	  if(x > limiteSuperior || x <= limiteInferior){
+		isOk = 0;
+	  }
+
+	  int resto = x % 45;
+	  int divisao = x /15; // a divisão indica em qual grupo o número deveria ir
+	  if(resto == 0) divisao--;
+
+	  colunaCount[divisao]++;
+
+	}
+
+	int isReciclavel = 1;
+	for(int i = 0; i < 5; i++){
+	  if(colunaCount[i] != 5){
+		isReciclavel = 0;
+		break;
+	  }
+	}
+
+	if(isOk == 1){
+	  printf("Ok\n");
+	}else if (isReciclavel == 1){
+	  printf("Reciclavel\n");
+	}else{
+	  printf("Descartavel\n");
+	}
+  }
+
+
+  return 0;
+}

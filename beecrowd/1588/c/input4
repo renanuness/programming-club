@@ -1,0 +1,19 @@
+1
+6 11
+fluminense
+fortaleza
+extraordinariamente
+figueirense
+coritiba
+cruzeiro
+2 fluminense 0 fortaleza
+3 extraordinariamente 1 figueirense
+1 coritiba 2 cruzeiro
+1 fluminense 0 extraordinariamente
+0 fortaleza 1 coritiba
+2 figueirense 1 cruzeiro
+1 extraordinariamente 0 coritiba
+3 fluminense 1 figueirense
+2 fortaleza 1 cruzeiro
+1 coritiba 0 fluminense
+0 extraordinariamente 2 fortaleza

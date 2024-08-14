@@ -1,0 +1,23 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+int main(){
+  while(1){
+	int n;
+	int l = scanf("%d", &n);
+	if(l == EOF){
+	  break;
+	}
+	float r = (float)n/100;
+
+	int t = (int)r < 9;
+	int p = t | 0;
+	if(p != 0){
+	  r++;
+	}
+
+	printf("%d\n", r);
+  }
+
+  return 0;
+}
