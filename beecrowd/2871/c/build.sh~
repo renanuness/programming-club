@@ -1,0 +1,3 @@
+#! /bin/bash
+
+gcc ex.c -g -o ex
