@@ -1,0 +1,32 @@
+#include <stdio.h>
+#include <stdli.h>
+
+#define N 99;
+
+
+void inverter(int *v){
+  int t[N];
+
+  memcpy(t, v, N);
+
+
+  for(int i = 0; i < N; i++){
+	v[t[i]] = i;
+  }
+}
+
+int main(){
+  int v[N];
+
+  for(int i = 0; i < N; i++){
+	scanf("%d", v[i]);
+  }
+
+  inverter(v);
+
+
+  for(int i = 0; i < N; i++){
+	printf("%d ", v[i]);
+  }
+  return 0;
+}

@@ -1,0 +1,77 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+
+int numero_digitos(unsigned long long n){
+  int count = 0;
+
+  while(1){
+	if(n >= 1){
+	  count++;
+	}else{
+	  if(count == 0){
+		return 1;
+	  }
+	  return count;
+	}
+	unsigned long long r = n/10;
+	n = r;
+  }
+}
+
+int main(){
+  int n;
+  int c = 4;
+  int maior_numero_digitos = 0;
+  scanf("%d",&n);
+
+  while(n-- > 0){
+	int m;
+	scanf("%d", &m);
+
+	unsigned long long matriz[m][m];
+	int maiores[m];
+
+	for(int i = 0; i<m; i++){
+	  maiores[i] = 0;
+	}
+
+	
+	for(int i = 0; i<m; i++){
+	  for(int j = 0; j < m; j++){
+		unsigned long long x;
+		scanf("%llu", &x);
+		unsigned long long q = x*x;
+		matriz[i][j] = q;
+
+		int digitos = numero_digitos(q);
+		if(digitos > maiores[j]){
+		  maiores[j] = digitos;
+		}
+	  }
+	}
+
+	printf("Quadrado da matriz #%d:\n", c++);
+	for(int i = 0; i<m; i++){
+	  for(int j = 0; j < m; j++){
+		int digitos = numero_digitos(matriz[i][j]);
+		int recuo = maiores[j] - digitos;
+
+		if(j > 0){
+		  recuo++;
+		}
+		for(int k = 0; k < recuo; k++){
+		  printf(" ");
+		}
+		printf("%llu",matriz[i][j]);
+		
+	  }
+	  printf("\n");
+	}
+	if(n>0){
+	  printf("\n");
+	}
+  }
+
+  return 0;
+}

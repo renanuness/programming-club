@@ -1,0 +1,29 @@
+#include <stdlib.h>
+#include <stdio.h>
+#include <string.h>
+
+int main(){
+  int c;
+  scanf("%d", &c);
+ 
+  for(int i = 0; i<c; i++){
+	char *m;
+	m = malloc(sizeof(char)*1000);
+	scanf("%s", m);
+	int length = strlen(m);
+
+	char *r;
+	r = malloc(sizeof(char)*1000);
+	int c = 0;
+	for(int j = length-1; j >=0; j--){
+	  if(m[j] > 96 && m[j] < 123){
+		r[c] = m[j];
+		c++;
+	  }
+	}
+	r[c] = '\0';
+	printf("%s\n", r);
+  }
+  
+  return 0;
+}

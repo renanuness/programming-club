@@ -1,0 +1,134 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+// comprar string
+//  criar lista encadeada
+typedef struct _Presente
+{
+    char *nome;
+    float preco;
+    int preferencia;
+    struct _Presente *anterior;
+    struct _Presente *proximo;
+} Presente;
+
+typedef struct
+{
+    Presente *head;
+} LinkedList;
+
+void aqui(){
+    printf("aqui\n");
+}
+
+void inserir(LinkedList *lista, Presente *novoPresente)
+{
+
+    if (!lista->head)
+    {
+        lista->head = novoPresente;
+        return;
+    }
+
+    Presente **presenteAtual = &(lista->head);
+    while (presenteAtual)
+    {
+      if (((*presenteAtual)->preferencia < (*novoPresente)->preferencia) ||
+	  ((*presenteAtual)->preferencia == (*novoPresente)->preferencia &&
+	   (*presenteAtual)->preco > (*novoPresente)->preco))
+        {
+	    Presente **temp = &presenteAtual;
+
+	    *presenteAtual = novoPresente;
+            if ((*temp)->anterior != NULL)
+            {
+	      (*presenteAtual)->anterior = (*temp)->anterior;
+            }
+            (*presenteAtual)->proximo = temp;
+            (*temp)->anterior = presenteAtual;
+
+            return;
+        }
+
+        if ((*presenteAtual)->proximo == NULL)
+        
+	(*presenteAtual)->proximo = novoPresente;
+            return;
+        }
+
+       presenteAtual = &(*presenteAtual)->proximo;
+    }
+
+}
+
+void printPresente(Presente *presente)
+{
+  printf("%s - R$ %.2f\n", presente->nome, presente->preco);
+}
+
+void printDebug(Presente *presente)
+{
+    printf("Presente: %s\n", presente->nome);
+    printf("Preco: %f\n", presente->preco);
+    printf("Preferencia: %d\n", presente->preferencia);
+}
+
+
+void printLista(LinkedList *lista)
+{
+    Presente *presenteAtual = lista->head;
+    while (presenteAtual)
+    {
+        printPresente(presenteAtual);
+        presenteAtual = presenteAtual->proximo;
+        // proximo(presenteAtual);
+    }
+}
+
+void proximo(Presente *presente)
+{
+    presente = presente->proximo;
+}
+
+int main()
+{
+    // while (scanf("%d", &n) != EOF)
+    char nome[50];
+    int numeroPresentes;
+
+    while (scanf("%s", nome) != EOF && scanf("%d", &numeroPresentes) != EOF)
+    {
+      LinkedList listaPresentes;
+
+        for (int i = 0; i < numeroPresentes; i++)
+        {
+            char presenteNome[50]; // um array é um ponteiro
+            int preferencia;
+            float preco;
+
+            scanf(" %[^\n]%*c", presenteNome);
+
+            scanf("%f", &preco);
+            scanf("%d", &preferencia);
+
+            Presente *novoPresente = malloc(sizeof(Presente));
+	    novoPresente->nome = malloc(sizeof(char)*50);
+	    strcpy(novoPresente->nome, presenteNome);
+            //novoPresente->nome = presenteNome;
+            novoPresente->preco = preco;
+            novoPresente->preferencia = preferencia;
+
+            //printPresente(novoPresente);
+            inserir(&listaPresentes, novoPresente);
+        }
+
+	printf("Lista de %s\n", nome);
+        printLista(&listaPresentes);
+	printf("\n");
+        scanf("%[^\n]%*c", nome);
+        scanf("%d", &numeroPresentes);
+    }
+
+    return 0;
+}

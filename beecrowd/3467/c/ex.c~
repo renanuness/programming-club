@@ -1,0 +1,20 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+int main(){
+  char *x;
+
+  while(true){
+    int n = scanf("%s", x);
+    if(n == EOF)
+      break;
+
+    if(n[2] == 'L'){
+      printf("Esse eh o meu lugar");
+    }else{
+      printf("Oi, Leonard");
+    }
+  }
+
+  return 0;
+}
